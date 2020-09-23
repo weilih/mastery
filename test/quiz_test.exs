@@ -9,7 +9,7 @@ defmodule QuizTest do
       %{current_question: %{template: first_template}} = Quiz.select_question(quiz)
 
       other_template = eventually_pick_other_template(quiz, first_template)
-      assert first_template  != other_template
+      assert first_template != other_template
     end
 
     test "templates are unique until cycle repeats", %{quiz: quiz} do
@@ -27,18 +27,18 @@ defmodule QuizTest do
 
     test "a wrong answer resets mastery", %{quiz: quiz} do
       quiz
-      |> Quiz.select_question
+      |> Quiz.select_question()
       |> assert_more_questions
       |> right_answer
-      |> Quiz.select_question
+      |> Quiz.select_question()
       |> assert_more_questions
       |> wrong_answer
-      |> Quiz.select_question
+      |> Quiz.select_question()
       |> assert_more_questions
       |> right_answer
-      |> Quiz.select_question
+      |> Quiz.select_question()
       |> right_answer
-      |> Quiz.select_question
+      |> Quiz.select_question()
       |> refute_more_questions
     end
   end
