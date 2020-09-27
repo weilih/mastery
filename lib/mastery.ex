@@ -9,14 +9,14 @@ defmodule Mastery do
 
   def build_quiz(fields) do
     with :ok <- QuizValidator.errors(fields),
-         :ok <- GenServer.call(QuizManager, {:build_quiz, fields}),
+         :ok <- QuizManager.build_quiz(fields),
          do: :ok,
          else: (error -> error)
   end
 
   def add_template(title, fields) do
     with :ok <- TemplateValidator.errors(fields),
-         :ok <- GenServer.call(QuizManager, {:add_template, title, fields}),
+         :ok <- QuizManager.add_template(title, fields),
          do: :ok,
          else: (error -> error)
   end
@@ -31,10 +31,10 @@ defmodule Mastery do
   end
 
   def select_question(session) do
-    GenServer.call(session, :select_question)
+    QuizSession.select_question(session)
   end
 
   def answer_question(session, answer) do
-    GenServer.call(session, {:answer_question, answer})
+    QuizSession.answer_question(session, answer)
   end
 end
