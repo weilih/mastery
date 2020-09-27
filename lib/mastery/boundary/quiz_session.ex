@@ -22,12 +22,12 @@ defmodule Mastery.Boundary.QuizSession do
     {:ok, {quiz, email}}
   end
 
-  def select_question(session) do
-    GenServer.call(via(session), :select_question)
+  def select_question(name) do
+    GenServer.call(via(name), :select_question)
   end
 
-  def answer_question(session, answer) do
-    GenServer.call(via(session), {:answer_question, answer})
+  def answer_question(name, answer) do
+    GenServer.call(via(name), {:answer_question, answer})
   end
 
   def handle_call(:select_question, _from, {quiz, email}) do
