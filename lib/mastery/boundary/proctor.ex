@@ -62,7 +62,7 @@ defmodule Mastery.Boundary.Proctor do
   def start_quiz(quiz, now) do
     Logger.info("Starting quiz #{quiz.fields.title}...")
     QuizManager.build_quiz(quiz.fields)
-    Enum.each(quiz.templates, &QuizManager.add_template(quiz, &1))
+    Enum.each(quiz.templates, &QuizManager.add_template(quiz.fields.title, &1))
     timeout = DateTime.diff(quiz.end_at, now, :millisecond)
     Process.send_after(self(), {:end_quiz, quiz.fields.title}, timeout)
   end
