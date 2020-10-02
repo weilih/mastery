@@ -30,8 +30,10 @@ defmodule Mastery do
     QuizSession.select_question(name)
   end
 
-  def answer_question(name, answer) do
-    QuizSession.answer_question(name, answer)
+  @persistence_fn Application.get_env(:mastery, :persistence_fn)
+
+  def answer_question(name, answer, persistence_fn \\ @persistence_fn) do
+    QuizSession.answer_question(name, answer, persistence_fn)
   end
 
   def schedule_quiz(quiz, templates, start_at, end_at) do
